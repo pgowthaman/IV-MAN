@@ -41,6 +41,8 @@ public class UserTO implements Serializable{
 	
 	private CompanyTO companyTO;
 	
+	private String deviceId;
+	
 	@JsonIgnore
 	private String password;
 	
@@ -90,7 +92,7 @@ public class UserTO implements Serializable{
 		return "UserTO [userId=" + userId + ", phoneNumber=" + phoneNumber + ", firebaseId=" + firebaseId
 				+ ", firebaseToken=" + firebaseToken + ", userRoleId=" + userRoleId + ", username=" + username
 				+ ", operatorId=" + operatorId + ", userRoleTO=" + userRoleTO + ", companyTO=" + companyTO
-				+ ", password=" + password + "]";
+				+ ", deviceId=" + deviceId + ", password=" + password + "]";
 	}
 
 	public String getUserRoleId() {
@@ -181,6 +183,14 @@ public class UserTO implements Serializable{
 
 	public void setCompanyTO(CompanyTO companyTO) {
 		this.companyTO = companyTO;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 	
 }
