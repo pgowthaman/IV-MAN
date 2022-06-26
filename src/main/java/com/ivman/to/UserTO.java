@@ -26,7 +26,6 @@ public class UserTO implements Serializable{
 	
 	private String phoneNumber;
 	
-	@JsonIgnore
 	private String firebaseId;
 	
 	private String firebaseToken;
