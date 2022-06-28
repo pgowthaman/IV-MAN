@@ -32,7 +32,7 @@ public class UserRoleDao {
 		for (UserRoleTO userRoleTO : userRoleTOs) {
 			UserRoleModel userRoleModel = new UserRoleModel();
 			userRoleTO.convertTOToModel(userRoleModel);
-			sessionFactory.getCurrentSession().save(userRoleModel);
+			sessionFactory.getCurrentSession().saveOrUpdate(userRoleModel);
 		}
 	}
 
@@ -45,22 +45,22 @@ public class UserRoleDao {
 	public List<UserRoleTO> getAll(){
 		List<UserRoleModel> userRoleModels =sessionFactory.getCurrentSession().createQuery("from UserRoleModel").list();
 		
-		List<UserRoleTO> roleTOs =  new ArrayList<UserRoleTO>();
-		for (UserRoleModel userRoleModel : userRoleModels) {
-			UserRoleTO  userRoleTO = new UserRoleTO();
-			userRoleTO.convertModelToTO(userRoleModel);
-			roleTOs.add(userRoleTO);
+		List<UserRoleTO> userRoleTOs = new ArrayList<UserRoleTO>();
+		for (UserRoleModel roleModel : userRoleModels) {
+			UserRoleTO userRoleTO = new UserRoleTO();
+			userRoleTO.convertModelToTO(roleModel);
+			userRoleTOs.add(userRoleTO);
 		}
-		return roleTOs;
+		return userRoleTOs;
 	}
 
 	@Transactional
-	public UserRoleTO getByUserRoleId(String id) {
+	public UserRoleTO getByUserRoleId(Integer id) {
 		String hql = "from UserRoleModel where userRoleId='" + id+"'";
 		List<UserRoleModel> userRoleModelList = sessionFactory.getCurrentSession().createQuery(hql).list();
 
 		if (userRoleModelList != null && !userRoleModelList.isEmpty()) {
-			UserRoleTO  userRoleTO = new UserRoleTO();
+			UserRoleTO userRoleTO = new UserRoleTO();
 			userRoleTO.convertModelToTO(userRoleModelList.get(0));
 			return userRoleTO;
 		}
@@ -69,9 +69,9 @@ public class UserRoleDao {
 	}
 
 	@Transactional
-	public boolean delete(String id) {
+	public boolean delete(Integer id) {
 		UserRoleModel userRoleModel = new UserRoleModel();
-		userRoleModel.setUserRoleId(Integer.valueOf(id));
+		userRoleModel.setUserRoleId(id);
 		try {
 			sessionFactory.getCurrentSession().delete(userRoleModel);
 		} catch (Exception e) {
@@ -111,15 +111,13 @@ public class UserRoleDao {
 		query.setMaxResults(pageSize);
 		userRoleModels =  query.list();
 
-		List<UserRoleTO> roleTOs =  new ArrayList<UserRoleTO>();
-		for (UserRoleModel userRoleModel : userRoleModels) {
-			UserRoleTO  userRoleTO = new UserRoleTO();
-			userRoleTO.convertModelToTO(userRoleModel);
-			roleTOs.add(userRoleTO);
+		List<UserRoleTO> userRoleTOs = new ArrayList<UserRoleTO>();
+		for (UserRoleModel roleModel : userRoleModels) {
+			UserRoleTO userRoleTO = new UserRoleTO();
+			userRoleTO.convertModelToTO(roleModel);
+			userRoleTOs.add(userRoleTO);
 		}
-
-
-		return roleTOs;
+		return userRoleTOs;
 	}
 
 	@Transactional

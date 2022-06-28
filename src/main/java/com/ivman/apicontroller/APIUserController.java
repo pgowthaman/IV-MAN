@@ -38,10 +38,10 @@ public class APIUserController {
 
 	@PostMapping(value="/user")
 	public ResponseEntity<List<MainModel>> user(@RequestBody MainModel mainModel) {
-		UserTO searchUserModel = mainModel.getSearchUserModel();
+		UserTO searchUserModel = mainModel.getSearchUserTO();
 		System.out.println(searchUserModel);
 		List<UserTO> userModels = showTablePagination(mainModel, searchUserModel);
-		mainModel.setUserModelList(userModels); 
+		mainModel.setUserTOList(userModels); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 	}
 	
@@ -88,7 +88,7 @@ public class APIUserController {
 		userDao.save(userModel);
 		MainModel mainModel =  new MainModel();
 		List<UserTO> userModels = showTablePagination(mainModel, null);
-		mainModel.setUserModelList(userModels); 
+		mainModel.setUserTOList(userModels); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 		
 	}
@@ -99,7 +99,7 @@ public class APIUserController {
 		userDao.delete(userModel.getUserId().toString());
 		MainModel mainModel =  new MainModel();
 		List<UserTO> userModels = showTablePagination(mainModel, null);
-		mainModel.setUserModelList(userModels); 
+		mainModel.setUserTOList(userModels); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 		
 	}
@@ -109,7 +109,7 @@ public class APIUserController {
 		userDao.deleteAll();
 		MainModel mainModel =  new MainModel();
 		List<UserTO> userModels = showTablePagination(mainModel, null);
-		mainModel.setUserModelList(userModels); 
+		mainModel.setUserTOList(userModels); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 	}
 	
@@ -147,7 +147,7 @@ public class APIUserController {
 		}
 		MainModel mainModel =  new MainModel();
 		List<UserTO> userModels = showTablePagination(mainModel, null);
-		mainModel.setUserModelList(userModels); 
+		mainModel.setUserTOList(userModels); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 	}
 	

@@ -17,6 +17,7 @@ import com.ivman.dao.CompanyDao;
 import com.ivman.to.CompanyTO;
 import com.ivman.to.MainModel;
 import com.ivman.utils.AppConstants;
+import com.ivman.utils.StringUtils;
 
 @RestController
 @RequestMapping(value="Api")
@@ -28,14 +29,14 @@ public class APICompanyController {
 
 	@PostMapping(value="/company")
 	public ResponseEntity<List<MainModel>> company(@RequestBody MainModel mainModel) {
-		CompanyTO searchCompanyModel = mainModel.getSearchCompanyModel();
-		System.out.println(searchCompanyModel);
-		List<CompanyTO> companyModels = showTablePagination(mainModel, searchCompanyModel);
-		mainModel.setCompanyModelList(companyModels); 
+		CompanyTO searchCompanyTO = mainModel.getSearchCompanyTO();
+		System.out.println(searchCompanyTO);
+		List<CompanyTO> companyTOs = showTablePagination(mainModel, searchCompanyTO);
+		mainModel.setCompanyTOList(companyTOs); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 	}
 	
-	private List<CompanyTO> showTablePagination(MainModel mainModel, CompanyTO searchCompanyModel) {
+	private List<CompanyTO> showTablePagination(MainModel mainModel, CompanyTO searchCompanyTO) {
 		String currentStrPage = mainModel.getPageNumber();
 		Integer currentPage =null; 
 		Integer previousPage = null;
@@ -69,27 +70,29 @@ public class APICompanyController {
 		
 		mainModel.setTotalRecords(totalRecords.toString());
 		mainModel.setTotalNumberOfpages(totalNumberOfpages.toString());
-		return companyDao.findPaginated(currentPage,pageSize,searchCompanyModel);
+		return companyDao.findPaginated(currentPage,pageSize,searchCompanyTO);
 	}
 	
 	@PostMapping(value="/companySave")
-	public ResponseEntity<List<MainModel>> companySave(@RequestBody CompanyTO companyModel) {
-		System.out.println("Inside Company Save"+companyModel);
-		companyDao.save(companyModel);
+	public ResponseEntity<List<MainModel>> companySave(@RequestBody CompanyTO companyTO) {
+		System.out.println("Inside Company Save"+companyTO);
+		companyDao.save(companyTO);
 		MainModel mainModel =  new MainModel();
-		List<CompanyTO> companyModels = showTablePagination(mainModel, null);
-		mainModel.setCompanyModelList(companyModels); 
+		List<CompanyTO> companyTOs = showTablePagination(mainModel, null);
+		mainModel.setCompanyTOList(companyTOs); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 		
 	}
 	
 	@PostMapping(value="/companyDelete")
-	public ResponseEntity<List<MainModel>> companyDelete(@RequestBody CompanyTO companyModel) {
-		System.out.println("Inside Company Save"+companyModel);
-		companyDao.delete(companyModel.getCompanyId().toString());
+	public ResponseEntity<List<MainModel>> companyDelete(@RequestBody CompanyTO companyTO) {
+		System.out.println("Inside Company Save"+companyTO);
+		if(StringUtils.isNotEmpty(companyTO.getCompanyId())) {
+			companyDao.delete(Integer.valueOf(companyTO.getCompanyId()));
+		}
 		MainModel mainModel =  new MainModel();
-		List<CompanyTO> companyModels = showTablePagination(mainModel, null);
-		mainModel.setCompanyModelList(companyModels); 
+		List<CompanyTO> companyTOs = showTablePagination(mainModel, null);
+		mainModel.setCompanyTOList(companyTOs); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 		
 	}
@@ -98,16 +101,16 @@ public class APICompanyController {
 	public ResponseEntity<List<MainModel>> companyDeleteAll() {
 		companyDao.deleteAll();
 		MainModel mainModel =  new MainModel();
-		List<CompanyTO> companyModels = showTablePagination(mainModel, null);
-		mainModel.setCompanyModelList(companyModels); 
+		List<CompanyTO> companyTOs = showTablePagination(mainModel, null);
+		mainModel.setCompanyTOList(companyTOs); 
 		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 	}
 	
 //	@PostMapping(value="/companyDownloadCSVFile")
 //	public ResponseEntity<byte[]> companyDownloadCSVFile() throws IOException {
 //		System.out.println("Inside Download");
-//		List<CompanyTO> companyModelList =  companyDao.getAll();
-//		String companyJsonData = JsonConvertorUtility.convertCompanyModelToJSON(companyModelList);
+//		List<CompanyTO> companyTOList =  companyDao.getAll();
+//		String companyJsonData = JsonConvertorUtility.convertCompanyTOToJSON(companyTOList);
 //		File companyCSVFile = JsonConvertorUtility.convertJsontoCSVFile("companyData.csv", companyJsonData);
 //	    HttpHeaders header = new HttpHeaders();
 //	    header.setContentType(MediaType.valueOf("text/csv"));
@@ -132,12 +135,12 @@ public class APICompanyController {
 //		FileUploadModel fileUploadModel = new FileUploadModel();
 //		fileUploadModel.setFileData(file);
 //		if(fileUploadModel!=null && (fileUploadModel.getFileData().getSize()>0) || (fileUploadModel.getFilePath()!=null && !"".equals(fileUploadModel.getFilePath()))) {
-//			List<CompanyTO> companyModelList = JsonConvertorUtility.convertCSVFileToJsonCompany(fileUploadModel);
-//			companyDao.saveAll(companyModelList);
+//			List<CompanyTO> companyTOList = JsonConvertorUtility.convertCSVFileToJsonCompany(fileUploadModel);
+//			companyDao.saveAll(companyTOList);
 //		}
 //		MainModel mainModel =  new MainModel();
-//		List<CompanyTO> companyModels = showTablePagination(mainModel, null);
-//		mainModel.setCompanyModelList(companyModels); 
+//		List<CompanyTO> companyTOs = showTablePagination(mainModel, null);
+//		mainModel.setCompanyTOList(companyTOs); 
 //		return new ResponseEntity<List<MainModel>>(Arrays.asList(mainModel),HttpStatus.OK);
 //	}
 	

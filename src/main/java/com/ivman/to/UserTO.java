@@ -86,14 +86,6 @@ public class UserTO implements Serializable{
 		this.username = username;
 	}
 
-	@Override
-	public String toString() {
-		return "UserTO [userId=" + userId + ", phoneNumber=" + phoneNumber + ", firebaseId=" + firebaseId
-				+ ", firebaseToken=" + firebaseToken + ", userRoleId=" + userRoleId + ", username=" + username
-				+ ", operatorId=" + operatorId + ", userRoleTO=" + userRoleTO + ", companyTO=" + companyTO
-				+ ", deviceId=" + deviceId + ", password=" + password + "]";
-	}
-
 	public String getUserRoleId() {
 		return userRoleId;
 	}
@@ -106,14 +98,6 @@ public class UserTO implements Serializable{
 		this.password = password;
 	}
 
-	public UserRoleTO getUserRoleTO() {
-		return userRoleTO;
-	}
-
-	public void setUserRoleTO(UserRoleTO userRoleTO) {
-		this.userRoleTO = userRoleTO;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -124,6 +108,38 @@ public class UserTO implements Serializable{
 
 	public void setOperatorId(String operatorId) {
 		this.operatorId = operatorId;
+	}
+	
+	public UserRoleTO getUserRoleTO() {
+		return userRoleTO;
+	}
+
+	public void setUserRoleTO(UserRoleTO userRoleTO) {
+		this.userRoleTO = userRoleTO;
+	}
+
+	public CompanyTO getCompanyTO() {
+		return companyTO;
+	}
+
+	public void setCompanyTO(CompanyTO companyTO) {
+		this.companyTO = companyTO;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	@Override
+	public String toString() {
+		return "UserTO [userId=" + userId + ", phoneNumber=" + phoneNumber + ", firebaseId=" + firebaseId
+				+ ", firebaseToken=" + firebaseToken + ", userRoleId=" + userRoleId + ", username=" + username
+				+ ", operatorId=" + operatorId + ", userRoleTO=" + userRoleTO + ", companyTO=" + companyTO
+				+ ", deviceId=" + deviceId + ", password=" + password + "]";
 	}
 
 	public void convertModelToTO(UserModel model) {
@@ -139,11 +155,10 @@ public class UserTO implements Serializable{
 
 		this.password = model.getPassword();
 		if(Objects.nonNull(model.getUserRoleModel())) {
-			UserRoleTO roleTO = new UserRoleTO();
+			UserRoleTO roleTO =  new UserRoleTO();
 			roleTO.convertModelToTO(model.getUserRoleModel());
 			this.setUserRoleTO(roleTO);
 		}
-		
 		if(Objects.nonNull(model.getCompanyModel())) {
 			CompanyTO companyTO = new CompanyTO();
 			companyTO.convertModelToTO(model.getCompanyModel());
@@ -163,33 +178,17 @@ public class UserTO implements Serializable{
 		model.setUsername(this.username);
 		model.setPassword(this.password);
 		if(Objects.nonNull(this.getUserRoleTO())) {
-			UserRoleTO roleTO = this.userRoleTO;
-			UserRoleModel roleModel =  new UserRoleModel();
+			UserRoleTO roleTO = this.getUserRoleTO();
+			UserRoleModel roleModel = new UserRoleModel();
 			roleTO.convertTOToModel(roleModel);
 			model.setUserRoleModel(roleModel);
 		}
 		if(Objects.nonNull(this.getCompanyTO())) {
-			CompanyTO companyTO = this.companyTO;
-			CompanyModel companyModel =  new CompanyModel();
+			CompanyModel companyModel = new CompanyModel();
+			CompanyTO companyTO = this.getCompanyTO();
 			companyTO.convertTOToModel(companyModel);
 			model.setCompanyModel(companyModel);
 		}
-	}
-
-	public CompanyTO getCompanyTO() {
-		return companyTO;
-	}
-
-	public void setCompanyTO(CompanyTO companyTO) {
-		this.companyTO = companyTO;
-	}
-
-	public String getDeviceId() {
-		return deviceId;
-	}
-
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
 	}
 	
 }

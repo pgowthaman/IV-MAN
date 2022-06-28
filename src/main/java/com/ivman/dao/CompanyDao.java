@@ -32,7 +32,7 @@ public class CompanyDao {
 		for (CompanyTO companyTO : companyTOs) {
 			CompanyModel companyModel = new CompanyModel();
 			companyTO.convertTOToModel(companyModel);
-			sessionFactory.getCurrentSession().save(companyModel);
+			sessionFactory.getCurrentSession().saveOrUpdate(companyModel);
 		}
 	}
 
@@ -45,22 +45,23 @@ public class CompanyDao {
 	public List<CompanyTO> getAll(){
 		List<CompanyModel> companyModels =sessionFactory.getCurrentSession().createQuery("from CompanyModel").list();
 		
-		List<CompanyTO> roleTOs =  new ArrayList<CompanyTO>();
+		List<CompanyTO> companyTOs = new ArrayList<CompanyTO>();
 		for (CompanyModel companyModel : companyModels) {
-			CompanyTO  companyTO = new CompanyTO();
+			CompanyTO companyTO = new CompanyTO();
 			companyTO.convertModelToTO(companyModel);
-			roleTOs.add(companyTO);
+			companyTOs.add(companyTO);
 		}
-		return roleTOs;
+
+		return companyTOs;
 	}
 
 	@Transactional
-	public CompanyTO getByCompanyId(String id) {
+	public CompanyTO getByCompanyId(Integer id) {
 		String hql = "from CompanyModel where companyId='" + id+"'";
 		List<CompanyModel> companyModelList = sessionFactory.getCurrentSession().createQuery(hql).list();
 
 		if (companyModelList != null && !companyModelList.isEmpty()) {
-			CompanyTO  companyTO = new CompanyTO();
+			CompanyTO companyTO = new CompanyTO();
 			companyTO.convertModelToTO(companyModelList.get(0));
 			return companyTO;
 		}
@@ -69,9 +70,9 @@ public class CompanyDao {
 	}
 
 	@Transactional
-	public boolean delete(String id) {
+	public boolean delete(Integer id) {
 		CompanyModel companyModel = new CompanyModel();
-		companyModel.setCompanyId(Integer.valueOf(id));
+		companyModel.setCompanyId(id);
 		try {
 			sessionFactory.getCurrentSession().delete(companyModel);
 		} catch (Exception e) {
@@ -110,14 +111,15 @@ public class CompanyDao {
 		}
 		query.setMaxResults(pageSize);
 		companyModels =  query.list();
-
-		List<CompanyTO> roleTOs =  new ArrayList<CompanyTO>();
+		
+		List<CompanyTO> companyTOs = new ArrayList<CompanyTO>();
 		for (CompanyModel companyModel : companyModels) {
-			CompanyTO  companyTO = new CompanyTO();
+			CompanyTO companyTO = new CompanyTO();
 			companyTO.convertModelToTO(companyModel);
-			roleTOs.add(companyTO);
+			companyTOs.add(companyTO);
 		}
-		return roleTOs;
+
+		return companyTOs;
 	}
 
 	@Transactional

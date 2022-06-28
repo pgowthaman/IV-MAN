@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Component
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonInclude(Include.NON_NULL)
 public class MainModel implements Serializable{
 
@@ -34,19 +33,39 @@ public class MainModel implements Serializable{
 	
 	private String message ;
 	
-	private boolean response;
+	private boolean response = true;
 	
-	private List<UserTO> userModelList;
+	private List<UserTO> userTOList;
 	
-	private UserTO searchUserModel;
+	private UserTO searchUserTO;
 	
-	private List<UserRoleTO> userRoleModelList;
+	private List<UserRoleTO> userRoleTOList;
 	
-	private UserRoleTO searchUserRoleModel;
+	private UserRoleTO searchUserRoleTO;
 	
-	private List<CompanyTO> companyModelList;
+	private List<CompanyTO> companyTOList;
 	
-	private CompanyTO searchCompanyModel;
+	private CompanyTO searchCompanyTO;
+	
+	private List<JobTO> jobTOList;
+	
+	private JobTO searchJobTO;
+	
+	private List<JobProLinkageTO> JobProLinkageTOList;
+	
+	private JobProLinkageTO searchJobProLinkageTO;
+	
+	private List<ProductTO> ProductTOList;
+	
+	private ProductTO searchProductTO;
+	
+	private List<ProRawLinkageTO> proRawLinkageTOList;
+	
+	private ProRawLinkageTO searchProRawLinkageTO;
+	
+	private List<RawMaterialsTO> rawMaterialsTOList;
+	
+	private RawMaterialsTO searchRawMaterialsTO;
 
 	public String getPageNumber() {
 		return pageNumber;
@@ -104,42 +123,6 @@ public class MainModel implements Serializable{
 		this.currentPage = currentPage;
 	}
 
-	public List<UserTO> getUserModelList() {
-		return userModelList;
-	}
-
-	public void setUserModelList(List<UserTO> userModelList) {
-		this.userModelList = userModelList;
-	}
-
-	public UserTO getSearchUserModel() {
-		return searchUserModel;
-	}
-
-	public void setSearchUserModel(UserTO searchUserModel) {
-		this.searchUserModel = searchUserModel;
-	}
-
-	public List<UserRoleTO> getUserRoleModelList() {
-		return userRoleModelList;
-	}
-
-	public void setUserRoleModelList(List<UserRoleTO> userRoleModelList) {
-		this.userRoleModelList = userRoleModelList;
-	}
-
-	public UserRoleTO getSearchUserRoleModel() {
-		return searchUserRoleModel;
-	}
-
-	public void setSearchUserRoleModel(UserRoleTO searchUserRoleModel) {
-		this.searchUserRoleModel = searchUserRoleModel;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getMessage() {
 		return message;
 	}
@@ -156,31 +139,152 @@ public class MainModel implements Serializable{
 		this.response = response;
 	}
 
+	public List<UserTO> getUserTOList() {
+		return userTOList;
+	}
+
+	public void setUserTOList(List<UserTO> userTOList) {
+		this.userTOList = userTOList;
+	}
+
+	public UserTO getSearchUserTO() {
+		return searchUserTO;
+	}
+
+	public void setSearchUserTO(UserTO searchUserTO) {
+		this.searchUserTO = searchUserTO;
+	}
+
+	public List<UserRoleTO> getUserRoleTOList() {
+		return userRoleTOList;
+	}
+
+	public void setUserRoleTOList(List<UserRoleTO> userRoleTOList) {
+		this.userRoleTOList = userRoleTOList;
+	}
+
+	public UserRoleTO getSearchUserRoleTO() {
+		return searchUserRoleTO;
+	}
+
+	public void setSearchUserRoleTO(UserRoleTO searchUserRoleTO) {
+		this.searchUserRoleTO = searchUserRoleTO;
+	}
+
+	public List<CompanyTO> getCompanyTOList() {
+		return companyTOList;
+	}
+
+	public void setCompanyTOList(List<CompanyTO> companyTOList) {
+		this.companyTOList = companyTOList;
+	}
+
+	public CompanyTO getSearchCompanyTO() {
+		return searchCompanyTO;
+	}
+
+	public void setSearchCompanyTO(CompanyTO searchCompanyTO) {
+		this.searchCompanyTO = searchCompanyTO;
+	}
+
+	public List<JobTO> getJobTOList() {
+		return jobTOList;
+	}
+
+	public void setJobTOList(List<JobTO> jobTOList) {
+		this.jobTOList = jobTOList;
+	}
+
+	public JobTO getSearchJobTO() {
+		return searchJobTO;
+	}
+
+	public void setSearchJobTO(JobTO searchJobTO) {
+		this.searchJobTO = searchJobTO;
+	}
+
+	public List<JobProLinkageTO> getJobProLinkageTOList() {
+		return JobProLinkageTOList;
+	}
+
+	public void setJobProLinkageTOList(List<JobProLinkageTO> jobProLinkageTOList) {
+		JobProLinkageTOList = jobProLinkageTOList;
+	}
+
+	public JobProLinkageTO getSearchJobProLinkageTO() {
+		return searchJobProLinkageTO;
+	}
+
+	public void setSearchJobProLinkageTO(JobProLinkageTO searchJobProLinkageTO) {
+		this.searchJobProLinkageTO = searchJobProLinkageTO;
+	}
+
+	public List<ProductTO> getProductTOList() {
+		return ProductTOList;
+	}
+
+	public void setProductTOList(List<ProductTO> productTOList) {
+		ProductTOList = productTOList;
+	}
+
+	public ProductTO getSearchProductTO() {
+		return searchProductTO;
+	}
+
+	public void setSearchProductTO(ProductTO searchProductTO) {
+		this.searchProductTO = searchProductTO;
+	}
+
+	public List<ProRawLinkageTO> getProRawLinkageTOList() {
+		return proRawLinkageTOList;
+	}
+
+	public void setProRawLinkageTOList(List<ProRawLinkageTO> proRawLinkageTOList) {
+		this.proRawLinkageTOList = proRawLinkageTOList;
+	}
+
+	public ProRawLinkageTO getSearchProRawLinkageTO() {
+		return searchProRawLinkageTO;
+	}
+
+	public void setSearchProRawLinkageTO(ProRawLinkageTO searchProRawLinkageTO) {
+		this.searchProRawLinkageTO = searchProRawLinkageTO;
+	}
+
+	public List<RawMaterialsTO> getRawMaterialsTOList() {
+		return rawMaterialsTOList;
+	}
+
+	public void setRawMaterialsTOList(List<RawMaterialsTO> rawMaterialsTOList) {
+		this.rawMaterialsTOList = rawMaterialsTOList;
+	}
+
+	public RawMaterialsTO getSearchRawMaterialsTO() {
+		return searchRawMaterialsTO;
+	}
+
+	public void setSearchRawMaterialsTO(RawMaterialsTO searchRawMaterialsTO) {
+		this.searchRawMaterialsTO = searchRawMaterialsTO;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "MainModel [pageNumber=" + pageNumber + ", pageSize=" + pageSize + ", totalRecords=" + totalRecords
 				+ ", totalNumberOfpages=" + totalNumberOfpages + ", previousPage=" + previousPage + ", nextPage="
 				+ nextPage + ", currentPage=" + currentPage + ", message=" + message + ", response=" + response
-				+ ", userModelList=" + userModelList + ", searchUserModel=" + searchUserModel + ", userRoleModelList="
-				+ userRoleModelList + ", searchUserRoleModel=" + searchUserRoleModel + ", companyModelList="
-				+ companyModelList + ", searchCompanyModel=" + searchCompanyModel + "]";
+				+ ", userTOList=" + userTOList + ", searchUserTO=" + searchUserTO + ", userRoleTOList=" + userRoleTOList
+				+ ", searchUserRoleTO=" + searchUserRoleTO + ", companyTOList=" + companyTOList + ", searchCompanyTO="
+				+ searchCompanyTO + ", jobTOList=" + jobTOList + ", searchJobTO=" + searchJobTO
+				+ ", JobProLinkageTOList=" + JobProLinkageTOList + ", searchJobProLinkageTO=" + searchJobProLinkageTO
+				+ ", ProductTOList=" + ProductTOList + ", searchProductTO=" + searchProductTO + ", proRawLinkageTOList="
+				+ proRawLinkageTOList + ", searchProRawLinkageTO=" + searchProRawLinkageTO + ", rawMaterialsTOList="
+				+ rawMaterialsTOList + ", searchRawMaterialsTO=" + searchRawMaterialsTO + "]";
 	}
-
-	public List<CompanyTO> getCompanyModelList() {
-		return companyModelList;
-	}
-
-	public void setCompanyModelList(List<CompanyTO> companyModelList) {
-		this.companyModelList = companyModelList;
-	}
-
-	public CompanyTO getSearchCompanyModel() {
-		return searchCompanyModel;
-	}
-
-	public void setSearchCompanyModel(CompanyTO searchCompanyModel) {
-		this.searchCompanyModel = searchCompanyModel;
-	}
+	
 	
 	
 }

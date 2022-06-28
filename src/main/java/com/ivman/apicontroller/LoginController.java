@@ -28,7 +28,9 @@ import com.ivman.apivalidator.ValidateUser;
 import com.ivman.dao.CompanyDao;
 import com.ivman.dao.UserRoleDao;
 import com.ivman.daointerface.UserInterfaceDao;
+import com.ivman.model.CompanyModel;
 import com.ivman.model.UserModel;
+import com.ivman.model.UserRoleModel;
 import com.ivman.securityconfig.JwtTokenUtil;
 import com.ivman.to.CompanyTO;
 import com.ivman.to.MainModel;
@@ -100,7 +102,7 @@ public class LoginController {
 			mainModel.setResponse(false);
 		    new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
 		}
-		mainModel.setUserModelList(Arrays.asList(userTO));
+		mainModel.setUserTOList(Arrays.asList(userTO));
 		getDashBoardData(mainModel);
 		return ResponseEntity.ok()
 				.header(
@@ -129,13 +131,13 @@ public class LoginController {
 				userTO.setFirebaseToken(request.getFirebaseToken());
 			}
 			userDao.save(userTO);
-			mainModel.setUserModelList(Arrays.asList(userTO));
+			mainModel.setUserTOList(Arrays.asList(userTO));
 		}else {
 			if(Objects.nonNull(request.getFirebaseId())) {
 				request.setFirebaseId(passwordEncoder.encode(request.getFirebaseId()));
 			}
 			userDao.save(request);
-			mainModel.setUserModelList(Arrays.asList(request));
+			mainModel.setUserTOList(Arrays.asList(request));
 		}
 		mainModel.setResponse(true);
 		mainModel.setMessage("Registered Successfully");
@@ -161,13 +163,13 @@ public class LoginController {
 	public ResponseEntity<?> createBaseData() {
 		
 		ArrayList<String> roles = new ArrayList<String>(Arrays.asList(AppConstants.SUPER_ADMIN,AppConstants.ADMIN,AppConstants.EDITOR));
-		List<UserRoleTO> userRoleModelList = new ArrayList<UserRoleTO>();
+		List<UserRoleTO> userRoleTOList = new ArrayList<UserRoleTO>();
 		roles.forEach(role -> {
-			UserRoleTO roleModel = new UserRoleTO();
-			roleModel.setUserRoleDesc(role);
-			userRoleModelList.add(roleModel);
+			UserRoleTO userRoleTO = new UserRoleTO();
+			userRoleTO.setUserRoleDesc(role);
+			userRoleTOList.add(userRoleTO);
 		});
-		userRoleDao.saveAll(userRoleModelList);
+		userRoleDao.saveAll(userRoleTOList);
 		
 		CompanyTO companyTO = new CompanyTO();
 		companyTO.setCompanyName("Fidbee");

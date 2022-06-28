@@ -16,6 +16,11 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.ivman.model.CompanyModel;
+import com.ivman.model.JobModel;
+import com.ivman.model.JobProLinkageModel;
+import com.ivman.model.ProRawLinkageModel;
+import com.ivman.model.ProductModel;
+import com.ivman.model.RawMaterialsModel;
 import com.ivman.model.UserModel;
 import com.ivman.model.UserRoleModel;
 
@@ -46,6 +51,11 @@ public class DBConfig {
 		lsf.addAnnotatedClass(UserModel.class)
 		.addAnnotatedClass(CompanyModel.class)
 		.addAnnotatedClass(UserRoleModel.class)
+		.addAnnotatedClass(RawMaterialsModel.class)
+		.addAnnotatedClass(ProductModel.class)
+		.addAnnotatedClass(ProRawLinkageModel.class)
+		.addAnnotatedClass(JobModel.class)
+		.addAnnotatedClass(JobProLinkageModel.class)
 		; 
 		return lsf.buildSessionFactory(); }
 

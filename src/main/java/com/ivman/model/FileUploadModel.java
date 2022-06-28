@@ -1,10 +1,17 @@
 package com.ivman.model;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
-public class FileUploadModel {
+public class FileUploadModel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private MultipartFile fileData;
 	

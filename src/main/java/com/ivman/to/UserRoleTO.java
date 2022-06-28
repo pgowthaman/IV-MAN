@@ -7,20 +7,16 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.ivman.model.UserModel;
 import com.ivman.model.UserRoleModel;
 import com.ivman.utils.StringUtils;
 
 @Component
 @JsonInclude(Include.NON_NULL)
-public class UserRoleTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserRoleTO implements Serializable {
 
 	private String userRoleId;
-	
+
 	private String userRoleDesc;
 
 	public String getUserRoleId() {
@@ -43,20 +39,20 @@ public class UserRoleTO implements Serializable{
 	public String toString() {
 		return "UserRoleTO [userRoleId=" + userRoleId + ", userRoleDesc=" + userRoleDesc + "]";
 	}
-
-	public void convertModelToTO(UserRoleModel userRoleModel) {
-		if(Objects.nonNull(userRoleModel.getUserRoleId())) {
-			this.userRoleId = userRoleModel.getUserRoleId().toString();
+	
+	public void convertModelToTO(UserRoleModel model) {
+		if(Objects.nonNull(model.getUserRoleId())) {
+			this.userRoleId = model.getUserRoleId().toString();
 		}
-		this.userRoleDesc = userRoleModel.getUserRoleDesc();
+		this.userRoleDesc = model.getUserRoleDesc();
 	}
-
-	public void convertTOToModel(UserRoleModel roleModel) {
-		
+	
+	public void convertTOToModel(UserRoleModel model) {
 		if(StringUtils.isNotEmpty(this.getUserRoleId())) {
-			roleModel.setUserRoleId(Integer.valueOf(this.getUserRoleId()));
+			model.setUserRoleId(Integer.valueOf(this.getUserRoleId()));
 		}
-		roleModel.setUserRoleDesc(this.userRoleDesc);
+		
+		model.setUserRoleDesc(this.userRoleDesc);
 	}
 
 }

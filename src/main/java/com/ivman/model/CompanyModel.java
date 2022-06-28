@@ -1,5 +1,7 @@
 package com.ivman.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +14,13 @@ import org.springframework.stereotype.Component;
 @Entity	
 @Table(name = "company")
 @Component
-public class CompanyModel {
+public class CompanyModel implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator = "company_id",strategy = GenerationType.AUTO)
 	@Column(name = "company_id")

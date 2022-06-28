@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.ivman.dao.UserRoleDao;
 import com.ivman.to.UserRoleTO;
-import com.ivman.utils.StringUtils;
 
 @Service
 public class ValidateUserRole {
@@ -21,10 +20,10 @@ public class ValidateUserRole {
 		
 		if(userRoleTO==null) {
 			throw new IvManException("User Role Object cannot be empty");
-		}else if(StringUtils.isEmpty(userRoleTO.getUserRoleId())) {
+		}else if(userRoleTO.getUserRoleId()==null) {
 			throw new IvManException("User Role ID cannot be empty");
 		}else {
-			UserRoleTO userRoleTOnew = userRoleDao.getByUserRoleId(userRoleTO.getUserRoleId());
+			UserRoleTO userRoleTOnew = userRoleDao.getByUserRoleId(Integer.valueOf(userRoleTO.getUserRoleId()));
 			if(userRoleTOnew==null) {
 				throw new IvManException("Given User Role Is Not Valid");
 			}

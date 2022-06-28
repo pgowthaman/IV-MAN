@@ -106,11 +106,21 @@ public class UserDao implements UserInterfaceDao{
 				whereAdded = true;
 			}
 			if(searchUserTo.getUserRoleTO()!=null) {
-				if(searchUserTo.getUserRoleTO().getUserRoleId()!=null) {
+				if(searchUserTo.getUserRoleTO().getUserRoleId()!=null && !"".equals(searchUserTo.getUserRoleTO().getUserRoleId())) {
 					if(!whereAdded) {
 						hqlQuery = hqlQuery +" where user.userRoleModel.userRoleId = '"+searchUserTo.getUserRoleTO().getUserRoleId()+"'";
 					}else {
 						hqlQuery = hqlQuery +" and user.userRoleModel.userRoleId = '"+searchUserTo.getUserRoleTO().getUserRoleId()+"'";
+					}
+					whereAdded = true;
+				}
+			}
+			if(searchUserTo.getCompanyTO()!=null) {
+				if(searchUserTo.getCompanyTO().getCompanyId()!=null && !"".equals(searchUserTo.getCompanyTO().getCompanyId())) {
+					if(!whereAdded) {
+						hqlQuery = hqlQuery +" where user.companyModel.companyId = '"+searchUserTo.getCompanyTO().getCompanyId()+"'";
+					}else {
+						hqlQuery = hqlQuery +" and user.companyModel.companyId = '"+searchUserTo.getCompanyTO().getCompanyId()+"'";
 					}
 					whereAdded = true;
 				}
