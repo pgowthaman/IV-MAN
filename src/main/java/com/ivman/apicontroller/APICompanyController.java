@@ -50,6 +50,7 @@ public class APICompanyController {
 		Integer pageSize = null;
 		if(pageStrSize==null ) {
 			pageSize=10;
+			mainModel.setPageSize("10");
 		}else {
 			pageSize = Integer.valueOf(pageStrSize);
 		}

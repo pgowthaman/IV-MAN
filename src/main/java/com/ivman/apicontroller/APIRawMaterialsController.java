@@ -36,6 +36,13 @@ public class APIRawMaterialsController {
 	@PostMapping(value="/rawMaterials")
 	public ResponseEntity<MainModel> rawMaterials(@RequestBody MainModel mainModel) {
 		RawMaterialsTO searchRawMaterialsTO = mainModel.getSearchRawMaterialsTO();
+		try {
+			validateRawMaterials.validateRawMaterailsBeforeFetch(searchRawMaterialsTO);
+		} catch (IvManException e) {
+			mainModel.setMessage(e.getMessage());
+			mainModel.setResponse(false);
+			return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
+		}
 		List<RawMaterialsTO> rawMaterialsTOs = showTablePagination(mainModel, searchRawMaterialsTO);
 		mainModel.setRawMaterialsTOList(rawMaterialsTOs); 
 		System.out.println(rawMaterialsTOs);
@@ -56,10 +63,11 @@ public class APIRawMaterialsController {
 		Integer pageSize = null;
 		if(pageStrSize==null ) {
 			pageSize=10;
+			mainModel.setPageSize("10");
 		}else {
 			pageSize = Integer.valueOf(pageStrSize);
 		}
-		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount();
+		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(searchRawMaterialsTO.getCompanyTO());
 		Integer totalNumberOfpages = totalRecords/pageSize;
 		if(totalRecords%pageSize!=0) {
 			totalNumberOfpages++;
@@ -143,5 +151,19 @@ public class APIRawMaterialsController {
 		return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
 	}
 	
+	@PostMapping(value="/rawMaterialsCount")
+	public ResponseEntity<MainModel> rawMaterialsDeleteAll(@RequestBody RawMaterialsTO rawMaterialsTO) {
+		MainModel mainModel =  new MainModel();
+		try {
+			validateRawMaterials.validateRawMaterailsBeforeFetch(rawMaterialsTO);
+		} catch (IvManException e) {
+			mainModel.setMessage(e.getMessage());
+			mainModel.setResponse(false);
+			return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
+		}
+		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(rawMaterialsTO.getCompanyTO());
+		mainModel.setTotalRecords(totalRecords.toString());
+		return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
+	}
 	
 }

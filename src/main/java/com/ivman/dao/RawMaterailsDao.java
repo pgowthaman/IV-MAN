@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ivman.model.RawMaterialsModel;
+import com.ivman.to.CompanyTO;
 import com.ivman.to.RawMaterialsTO;
 
 @Repository
@@ -149,8 +150,8 @@ public class RawMaterailsDao {
 	}
 
 	@Transactional
-	public Integer rawMaterialsTotalRecordCount() {   
-		String hqlString = "select count(*) from RawMaterialsModel";   
+	public Integer rawMaterialsTotalRecordCount(CompanyTO companyTO) {   
+		String hqlString = "select count(*) from RawMaterialsModel as rm rm.companyModel.companyId = '"+companyTO.getCompanyId()+"'";  
 		Query query = sessionFactory.getCurrentSession().createQuery(hqlString);   
 		Integer count = ((Number)query.uniqueResult()).intValue();    
 
