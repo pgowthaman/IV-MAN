@@ -67,9 +67,4 @@ public class ValidateRawMaterials {
 		}
 	}
 
-	public void validateRawMaterailsBeforeFetch(RawMaterialsTO searchRawMaterialsTO) throws IvManException {
-		validateCompany.validateCompanyDetails(searchRawMaterialsTO.getCompanyTO());
-		
-	}
-
 }

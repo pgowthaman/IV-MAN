@@ -32,12 +32,15 @@ public class APIRawMaterialsController {
 	
 	@Autowired
 	private ValidateRawMaterials validateRawMaterials;
+	
+	@Autowired
+	private ValidateCompany validateCompany;
 
 	@PostMapping(value="/rawMaterials")
 	public ResponseEntity<MainModel> rawMaterials(@RequestBody MainModel mainModel) {
 		RawMaterialsTO searchRawMaterialsTO = mainModel.getSearchRawMaterialsTO();
 		try {
-			validateRawMaterials.validateRawMaterailsBeforeFetch(searchRawMaterialsTO);
+			validateCompany.validateCompanyDetails(mainModel.getCompanyTO());
 		} catch (IvManException e) {
 			mainModel.setMessage(e.getMessage());
 			mainModel.setResponse(false);
@@ -67,7 +70,7 @@ public class APIRawMaterialsController {
 		}else {
 			pageSize = Integer.valueOf(pageStrSize);
 		}
-		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(searchRawMaterialsTO.getCompanyTO());
+		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(mainModel.getCompanyTO());
 		Integer totalNumberOfpages = totalRecords/pageSize;
 		if(totalRecords%pageSize!=0) {
 			totalNumberOfpages++;
@@ -152,16 +155,15 @@ public class APIRawMaterialsController {
 	}
 	
 	@PostMapping(value="/rawMaterialsCount")
-	public ResponseEntity<MainModel> rawMaterialsDeleteAll(@RequestBody RawMaterialsTO rawMaterialsTO) {
-		MainModel mainModel =  new MainModel();
+	public ResponseEntity<MainModel> rawMaterialsDeleteAll(@RequestBody MainModel mainModel) {
 		try {
-			validateRawMaterials.validateRawMaterailsBeforeFetch(rawMaterialsTO);
+			validateCompany.validateCompanyDetails(mainModel.getCompanyTO());
 		} catch (IvManException e) {
 			mainModel.setMessage(e.getMessage());
 			mainModel.setResponse(false);
 			return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
 		}
-		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(rawMaterialsTO.getCompanyTO());
+		Integer totalRecords = rawMaterialsDao.rawMaterialsTotalRecordCount(mainModel.getCompanyTO());
 		mainModel.setTotalRecords(totalRecords.toString());
 		return new ResponseEntity<MainModel>(mainModel,HttpStatus.OK);
 	}

@@ -47,6 +47,8 @@ public class MainModel implements Serializable{
 	
 	private CompanyTO searchCompanyTO;
 	
+	private CompanyTO companyTO;
+	
 	private List<JobTO> jobTOList;
 	
 	private JobTO searchJobTO;
@@ -271,6 +273,14 @@ public class MainModel implements Serializable{
 		return serialVersionUID;
 	}
 
+	public CompanyTO getCompanyTO() {
+		return companyTO;
+	}
+
+	public void setCompanyTO(CompanyTO companyTO) {
+		this.companyTO = companyTO;
+	}
+
 	@Override
 	public String toString() {
 		return "MainModel [pageNumber=" + pageNumber + ", pageSize=" + pageSize + ", totalRecords=" + totalRecords
@@ -278,11 +288,11 @@ public class MainModel implements Serializable{
 				+ nextPage + ", currentPage=" + currentPage + ", message=" + message + ", response=" + response
 				+ ", userTOList=" + userTOList + ", searchUserTO=" + searchUserTO + ", userRoleTOList=" + userRoleTOList
 				+ ", searchUserRoleTO=" + searchUserRoleTO + ", companyTOList=" + companyTOList + ", searchCompanyTO="
-				+ searchCompanyTO + ", jobTOList=" + jobTOList + ", searchJobTO=" + searchJobTO
-				+ ", JobProLinkageTOList=" + JobProLinkageTOList + ", searchJobProLinkageTO=" + searchJobProLinkageTO
-				+ ", ProductTOList=" + ProductTOList + ", searchProductTO=" + searchProductTO + ", proRawLinkageTOList="
-				+ proRawLinkageTOList + ", searchProRawLinkageTO=" + searchProRawLinkageTO + ", rawMaterialsTOList="
-				+ rawMaterialsTOList + ", searchRawMaterialsTO=" + searchRawMaterialsTO + "]";
+				+ searchCompanyTO + ", companyTO=" + companyTO + ", jobTOList=" + jobTOList + ", searchJobTO="
+				+ searchJobTO + ", JobProLinkageTOList=" + JobProLinkageTOList + ", searchJobProLinkageTO="
+				+ searchJobProLinkageTO + ", ProductTOList=" + ProductTOList + ", searchProductTO=" + searchProductTO
+				+ ", proRawLinkageTOList=" + proRawLinkageTOList + ", searchProRawLinkageTO=" + searchProRawLinkageTO
+				+ ", rawMaterialsTOList=" + rawMaterialsTOList + ", searchRawMaterialsTO=" + searchRawMaterialsTO + "]";
 	}
 	
 	

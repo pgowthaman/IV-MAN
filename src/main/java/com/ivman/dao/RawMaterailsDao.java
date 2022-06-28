@@ -151,7 +151,7 @@ public class RawMaterailsDao {
 
 	@Transactional
 	public Integer rawMaterialsTotalRecordCount(CompanyTO companyTO) {   
-		String hqlString = "select count(*) from RawMaterialsModel as rm rm.companyModel.companyId = '"+companyTO.getCompanyId()+"'";  
+		String hqlString = "select count(*) from RawMaterialsModel as rm where rm.companyModel.companyId = '"+companyTO.getCompanyId()+"'";  
 		Query query = sessionFactory.getCurrentSession().createQuery(hqlString);   
 		Integer count = ((Number)query.uniqueResult()).intValue();    
 
